@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
 
 import { useNavigate } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +27,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ViewPage = () => {
+    const [userData, setUserData] = useState('');
+    const [error, setError] = useState('');
+    useEffect(() => {
+        async function getVehicleData() {
+            try {
+                const res = await axios.post('http://localhost:5000/api/vehicle/:id');
+                console.log("res::", res);
+                if (res.status === 200) {
+                    setUserData(res.data)
+                }
+                else if (res?.response?.status === 400 || res?.response?.status === 500) {
+                    console.log("error res::", res.response.data.Error);
+                    setError(res.response.data.Error)
+                }
+            } catch (err) {
+                console.log("register err::", err);
+            }
+        }
+        getVehicleData()
+
+    }, [])
 
 
 

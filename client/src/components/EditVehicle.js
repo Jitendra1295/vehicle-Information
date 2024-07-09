@@ -46,7 +46,6 @@ const EditVehicle = () => {
     console.log("useParams::", selectModel, modelVariant);
     const classes = useStyles();
     const handleAddImage = async (e) => {
-        e.preventDefault();
         console.log("add vehicle res::");
         const formData = new FormData();
         formData.append('file', file);
