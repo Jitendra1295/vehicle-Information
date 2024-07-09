@@ -4,8 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
+import { Brand, Category } from "../data"
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -31,6 +32,7 @@ const ViewPage = () => {
     const [error, setError] = useState('');
     let { id } = useParams();
     useEffect(() => {
+
         async function getVehicleData() {
             try {
                 const res = await axios.get(`http://localhost:5000/api/img/user/${id}`);
@@ -41,6 +43,7 @@ const ViewPage = () => {
                 else if (res?.response?.status === 400 || res?.response?.status === 500) {
                     console.log("error res::", res.response.data.Error);
                     setError(res.response.data.Error)
+                    console.log("register err::", error);
                 }
             } catch (err) {
                 console.log("register err::", err);
@@ -51,10 +54,19 @@ const ViewPage = () => {
     }, [])
 
 
-
-    const navigate = useNavigate();
     const classes = useStyles();
-    const ImageData = [1, 2, 3]
+
+    const getBrandName = (id) => {
+        const brand = Brand.filter(item => item._id === id)
+        console.log("getBrandName::", brand[0]);
+        return brand[0]?.name
+    }
+
+    const getCategoryName = (id) => {
+        const category = Category.filter(item => item._id == id)
+        console.log("category::", category[0], id);
+        return category[0]?.name
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -64,9 +76,9 @@ const ViewPage = () => {
                     Vehicle Information
                 </Typography>
 
-                <div style={{ display: "flex", flexDirection: "column", marginTop: "40px" }}>
-                    <span>Vehicle Brand:  {userData?.brand_id} </span>
-                    <span>Category:  {userData?.category_id} </span>
+                <div style={{ display: "flex", flexDirection: "column", marginTop: "40px", marginBottom: "20px" }}>
+                    <span>Vehicle Brand:  {getBrandName(userData?.brand_id)} </span>
+                    <span>Category:  {getCategoryName(userData?.category_id)} </span>
                     <span>modelName: {userData?.model_name} </span>
                 </div>
                 <Typography component="h1" variant="h5">
@@ -77,7 +89,7 @@ const ViewPage = () => {
                         userData?.images && userData?.images.map((image, index) => {
                             return (
                                 <div>
-                                    <img src={`http://localhost:5000/${image?.vehicle_information_image}`} style={{ marginLeft: "20px" }} width={200} height={100}></img>
+                                    <img src={`http://localhost:5000/${image?.vehicle_information_image}`} alt="" style={{ marginLeft: "20px" }} width={200} height={100}></img>
                                 </div>
                             )
                         })

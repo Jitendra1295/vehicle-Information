@@ -18,7 +18,7 @@ import axios from 'axios';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
-import { Brand, Category } from "../data"
+import { Brand } from "../data"
 
 const useStyles = makeStyles((theme) => ({
     icon: {
@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function LandingPage() {
     const [vehicleData, setVehicleData] = useState('');
