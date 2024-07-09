@@ -61,7 +61,7 @@ const ViewPage = () => {
             <CssBaseline />
             <div className={classes.paper}>
                 <Typography component="h1" variant="h5">
-                    Vehicle information
+                    Vehicle Information
                 </Typography>
 
                 <div style={{ display: "flex", flexDirection: "column", marginTop: "40px" }}>
