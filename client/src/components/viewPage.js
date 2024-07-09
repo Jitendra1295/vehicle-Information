@@ -32,7 +32,7 @@ const ViewPage = () => {
     useEffect(() => {
         async function getVehicleData() {
             try {
-                const res = await axios.post('http://localhost:5000/api/vehicle/:id');
+                const res = await axios.get('http://localhost:5000/api/vehicle/:id');
                 console.log("res::", res);
                 if (res.status === 200) {
                     setUserData(res.data)
