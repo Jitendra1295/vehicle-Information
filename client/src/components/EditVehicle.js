@@ -37,19 +37,18 @@ const EditVehicle = () => {
     const [file, setFile] = useState('');
     const navigate = useNavigate();
     let { id, model, vId } = useParams();
-    const arrId = id.split("")
-    const arrModel = model.slice(1)
-    const vehicleId = vId.slice(1)
-    const selectBrand = Brand[arrId[1] - 1]
-    const selectModel = selectBrand.model.filter(value => value.model_name === arrModel)
-    const modelVariant = selectModel[0]?.Variant
-    console.log("useParams::", selectModel, modelVariant);
+
+    const selectBrand = Brand[id - 1]
+    const selectModel = selectBrand?.model.filter(value => value.model_name === model)
+    console.log("useParams::1", id, model, vId);
+    console.log("useParams::2", selectBrand, Brand);
+    const modelVariant = selectModel[0]?.Variant || []
     const classes = useStyles();
     const handleAddImage = async (e) => {
         console.log("add vehicle res::");
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('vehicle_information_id', vehicleId);
+        formData.append('vehicle_information_id', vId);
 
         try {
             console.log("add vehicle res::", formData);
@@ -61,10 +60,10 @@ const EditVehicle = () => {
         }
     }
     const handleSubmit = async (e) => {
-        console.log("handleSubmit ::", variant, vehicleId);
+        console.log("handleSubmit ::", variant, vId);
         const formData = {
             model_name: variant.
-                model_variant, vehicle_information_id: vehicleId
+                model_variant, vehicle_information_id: vId
         }
         e.preventDefault();
         try {

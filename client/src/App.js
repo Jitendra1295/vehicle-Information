@@ -18,7 +18,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/vehicle" element={<Vehicle />} />
           <Route path="/edit/:id/:model/:vId" element={<EditVehicle />} />
-          <Route path="/view" element={<ViewPage />} />
+          <Route path="/view/:id" element={<ViewPage />} />
         </Routes>
       </div>
     </Router>

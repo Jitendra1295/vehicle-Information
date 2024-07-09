@@ -149,10 +149,10 @@ export default function LandingPage() {
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button onClick={() => { navigate("/view") }} size="small" color="primary">
+                                        <Button onClick={() => { navigate(`/view/${card?._id}`) }} size="small" color="primary">
                                             View
                                         </Button>
-                                        <Button onClick={() => { navigate(`/edit/:${card?.brand_id}/:${card?.model_name}/:${card?._id}`) }} size="small" color="primary">
+                                        <Button onClick={() => { navigate(`/edit/${card?.brand_id}/${card?.model_name}/${card?._id}`) }} size="small" color="primary">
                                             Edit
                                         </Button>
                                     </CardActions>

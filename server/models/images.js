@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const imageSchema = new mongoose.Schema({
-    vehicle_information_id: { type: String, required: true },
+    vehicle_information_id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "vehicle" },
     vehicle_information_image:
     {
         type: String

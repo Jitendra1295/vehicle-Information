@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -29,10 +29,11 @@ const useStyles = makeStyles((theme) => ({
 const ViewPage = () => {
     const [userData, setUserData] = useState('');
     const [error, setError] = useState('');
+    let { id } = useParams();
     useEffect(() => {
         async function getVehicleData() {
             try {
-                const res = await axios.get('http://localhost:5000/api/vehicle/:id');
+                const res = await axios.get(`http://localhost:5000/api/vehicle/data/${id}`);
                 console.log("res::", res);
                 if (res.status === 200) {
                     setUserData(res.data)
