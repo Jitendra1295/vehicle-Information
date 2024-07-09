@@ -1,7 +1,9 @@
 const express = require('express');
 const Images = require("../models/images");
+const Vehicle = require("../models/vehicle")
 const multer = require("multer");
 const path = require("path");
+const mongoose = require('mongoose');
 
 const router = express.Router();
 
@@ -37,5 +39,57 @@ router.post('/add', upload.single("file"), async (req, resp) => {
         return resp.status(500).json({ Error: "Server error" });
     }
 });
+router.get("/user/:id", async (req, resp) => {
+    let { id } = req.params;
+    console.log("VehicleData::0", id, req.params);
+
+    // Validate and sanitize the ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return resp.status(400).json({ error: 'Invalid vehicle ID' });
+    }
+    console.log("VehicleData::1 ", id, req.params);
+
+    try {
+        const vehicleDetails = await Vehicle.aggregate([
+            { $match: { _id: new mongoose.Types.ObjectId(id) } },
+            {
+                $lookup: {
+                    from: 'variants',
+                    localField: '_id',
+                    foreignField: 'vehicle_information_id',
+                    as: 'variants'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'images',
+                    localField: '_id',
+                    foreignField: 'vehicle_information_id',
+                    as: 'images'
+                }
+            },
+            {
+                $project: {
+                    brand_id: 1,
+                    category_id: 1,
+                    model_name: 1,
+                    user: 1,
+                    variants: 1,
+                    images: 1
+                }
+            }
+        ]);
+
+        if (vehicleDetails.length === 0) {
+            return resp.status(404).json({ error: 'Vehicle not found' });
+        }
+        console.log("vehicleDetails ::", vehicleDetails);
+        return resp.status(200).json({ vehicleDetails, message: "Data fetched successfully" });
+    } catch (error) {
+        console.log("Error ::", error);
+        return resp.status(500).json({ error: 'Server error' });
+    }
+});
+
 
 module.exports = router;

@@ -14,18 +14,6 @@ const MONGODB_URI = "mongodb://localhost:27017/vehicle";
 app.use(cors());
 app.use(express.json());
 
-
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-
-// const upload = multer({ storage: storage });
-
 // MongoDB connection
 mongoose.connect(MONGODB_URI)
     .then(() => console.log('MongoDB connected'))

@@ -33,10 +33,10 @@ const ViewPage = () => {
     useEffect(() => {
         async function getVehicleData() {
             try {
-                const res = await axios.get(`http://localhost:5000/api/vehicle/data/${id}`);
+                const res = await axios.get(`http://localhost:5000/api/img/user/${id}`);
                 console.log("res::", res);
                 if (res.status === 200) {
-                    setUserData(res.data)
+                    setUserData(res.data?.vehicleDetails[0])
                 }
                 else if (res?.response?.status === 400 || res?.response?.status === 500) {
                     console.log("error res::", res.response.data.Error);
@@ -65,16 +65,16 @@ const ViewPage = () => {
                 </Typography>
 
                 <div style={{ display: "flex", flexDirection: "column", marginTop: "40px" }}>
-                    <span>Vehicle Brand:  BMW </span>
-                    <span>Category:  Car </span>
-                    <span>modelName:  BMW X1 </span>
+                    <span>Vehicle Brand:  {userData?.brand_id} </span>
+                    <span>Category:  {userData?.category_id} </span>
+                    <span>modelName: {userData?.model_name} </span>
                 </div>
                 <Typography component="h1" variant="h5">
                     Vehicle Images
                 </Typography>
                 <div style={{ display: "flex", flexDirection: "row", marginTop: "40px", marginBottom: "40px" }}>
                     {
-                        ImageData.map((image, index) => {
+                        userData?.images && userData?.images.map((image, index) => {
                             return (
                                 <div>
                                     <img src={"https://picsum.photos/seed/picsum/200/300"} style={{ marginLeft: "20px" }} width={200} height={100}></img>
@@ -89,8 +89,8 @@ const ViewPage = () => {
                     Vehicle Price Variant
                 </Typography>
                 <div style={{ display: "flex", flexDirection: "column", marginTop: "40px" }}>
-                    <span>Model Variant name :  TVS Jupiter Sheet Metal Wheel </span>
-                    <span>Model color:  Black </span>
+                    <span>Model Variant name :  {userData && userData?.variants[0]?.model_name}</span>
+                    <span>Model color:  {userData && userData?.variants[0]?.model_color} </span>
 
                 </div>
 
