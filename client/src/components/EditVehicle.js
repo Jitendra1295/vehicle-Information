@@ -47,9 +47,10 @@ const EditVehicle = () => {
     const classes = useStyles();
     const handleAddImage = async (e) => {
         console.log("add vehicle res::");
-        const formData = {
-            filename: file, vehicle_information_id: vehicleId
-        }
+        const formData = new FormData()
+        formData.append("file", file)
+        formData.append("vehicle_information_id", vehicleId)
+
         try {
             console.log("add vehicle res::", formData);
             const res = await axios.post('http://localhost:5000/api/img/add', formData);
