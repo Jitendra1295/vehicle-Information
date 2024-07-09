@@ -46,6 +46,7 @@ const EditVehicle = () => {
     console.log("useParams::", selectModel, modelVariant);
     const classes = useStyles();
     const handleAddImage = async (e) => {
+        e.preventDefault();
         console.log("add vehicle res::");
         const formData = new FormData();
         formData.append('file', file);
@@ -61,17 +62,14 @@ const EditVehicle = () => {
         }
     }
     const handleSubmit = async (e) => {
-        console.log("handleSubmit", variant);
+        console.log("handleSubmit ::", variant, vehicleId);
         const formData = {
-            model_name: variant.model_variant, vehicle_information_id: vehicleId
+            model_name: variant.
+                model_variant, vehicle_information_id: vehicleId
         }
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/api/img/add', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const res = await axios.post('http://localhost:5000/api/vehicle/variant', formData)
             console.log("add image res::", res);
             navigate("/landingPage")
         } catch (err) {

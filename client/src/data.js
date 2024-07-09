@@ -8,13 +8,6 @@ export const Brand = [{
             "model_variant": "BMW X1 Metal",
             "model_color": "white"
         }]
-    }, {
-        "model_name": "BMW X3",
-        Variant: [{
-            "id": 1,
-            "model_variant": "BMW X3 Metal",
-            "model_color": "white"
-        }]
     }]
 }, {
     _id: "2",
