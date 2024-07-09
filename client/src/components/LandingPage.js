@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         marginRight: theme.spacing(2),
     },
+    flexGrow: {
+        flexGrow: 1,
+    },
     heroContent: {
         backgroundColor: theme.palette.background.paper,
         padding: theme.spacing(8, 0, 6),
@@ -76,6 +79,12 @@ export default function LandingPage() {
         getVehicleData()
     }, [])
 
+    const handleLogout = async () => {
+        localStorage.removeItem('token'); // Adjust this key according to your storage key
+        localStorage.removeItem('user'); // Adjust this key according to your storage key
+        navigate("/")
+
+    }
     const handleSearch = async () => {
         console.log("submit:", brand);
         try {
@@ -96,6 +105,10 @@ export default function LandingPage() {
                     <Typography variant="h6" color="inherit" noWrap>
                         Vehicle information
                     </Typography>
+                    <div className={classes.flexGrow}></div>
+                    <Button variant="contained" onClick={() => { handleLogout() }}>
+                        <span style={{ color: "red" }}>Logout</span>
+                    </Button>
                 </Toolbar>
             </AppBar>
             <main>
