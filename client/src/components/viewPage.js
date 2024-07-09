@@ -77,7 +77,7 @@ const ViewPage = () => {
                         userData?.images && userData?.images.map((image, index) => {
                             return (
                                 <div>
-                                    <img src={"https://picsum.photos/seed/picsum/200/300"} style={{ marginLeft: "20px" }} width={200} height={100}></img>
+                                    <img src={`http://localhost:5000/${image?.vehicle_information_image}`} style={{ marginLeft: "20px" }} width={200} height={100}></img>
                                 </div>
                             )
                         })

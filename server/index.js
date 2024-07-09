@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const multer = require('multer');
+const path = require("path")
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ const MONGODB_URI = "mongodb://localhost:27017/vehicle";
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.resolve("./public")));
 
 // MongoDB connection
 mongoose.connect(MONGODB_URI)
