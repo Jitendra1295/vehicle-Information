@@ -31,3 +31,15 @@ Vehicle Information
    ```bash
    git clone [https://github.com/your/repository.git](https://github.com/Jitendra1295/vehicle-Information)
    cd vehicle-Information
+
+1. Running the Application:
+   ```bash
+   Start the server:
+   cd server
+   node index.js
+
+   Start the client:
+    cd client
+    npm start
+
+   
