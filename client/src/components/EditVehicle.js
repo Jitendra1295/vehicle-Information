@@ -47,9 +47,9 @@ const EditVehicle = () => {
     const classes = useStyles();
     const handleAddImage = async (e) => {
         console.log("add vehicle res::");
-        const formData = new FormData()
-        formData.append("file", file)
-        formData.append("vehicle_information_id", vehicleId)
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('vehicle_information_id', vehicleId);
 
         try {
             console.log("add vehicle res::", formData);
@@ -67,7 +67,11 @@ const EditVehicle = () => {
         }
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/api/vehicle/variant', formData);
+            const res = await axios.post('http://localhost:5000/api/img/add', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
             console.log("add image res::", res);
             navigate("/landingPage")
         } catch (err) {
@@ -76,7 +80,7 @@ const EditVehicle = () => {
     };
     function handleChange(e) {
         console.log(e.target.files);
-        setFile(URL.createObjectURL(e.target.files[0]));
+        setFile(e.target.files[0]);
     }
     return (
         <Container component="main" maxWidth="xs">
